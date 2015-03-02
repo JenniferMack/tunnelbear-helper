@@ -16,7 +16,7 @@ Requirements are:
 
 - An up-to-date ArchLinux installation.
 - A TunnelBear account at the Giant or Grizzly level.
-- The ruby language need to be installed to use the optional `tunnelbear` script.
+- The ruby language needs to be installed to use the optional `tunnelbear` script.
 
 ---- 
 
@@ -26,7 +26,7 @@ Install `openvpn` if it’s not already installed.
 
 	sudo pacman -S openvpn
 	
-The TunnelBear OpenVPN files need to be downloaded. It’s a link on their [Linux support page](https://www.tunnelbear.com/updates/linux_support/). The file is named `openvpn.zip`. The name may change in the future. Adjust the following commands if that happens.
+The TunnelBear OpenVPN config files need to be downloaded. They can be found at a link on the [Linux support page](https://www.tunnelbear.com/updates/linux_support/). The file is named `openvpn.zip`. This name may change in the future. Adjust the following commands if that happens.
 
 After downloading, upzip the file and rename the folder.
 
@@ -35,7 +35,7 @@ After downloading, upzip the file and rename the folder.
 	
 ## File renaming
 
-The file names for the configuration files are not command line friendly. They are excessively long and contain spaces. Doing this step will save a lot of troubleshooting time.
+The file names of the configuration files are not command line friendly. They are excessively long and contain spaces. Doing this step will save a lot of troubleshooting time.
 
 The rename command is included in the default Arch installation. First, remove the `TunnelBear ` prefix.
 
@@ -47,7 +47,7 @@ Then remove the spaces from two remaining files.
 
 ## Authorization file
 
-TunnelBear uses a user/password authentication on top of the key files. OpenVPN can load this information from a file when it’s started. The TunnelBear systemd unit file expects a key file, if you don’t want to use one, delete the `--auth-user-pass /etc/openvpn/tunnelbear.d/tb-auth.key \\` line from it.
+TunnelBear uses user/password authentication on top of the provided key files. OpenVPN can load this information from a file when it’s started. The TunnelBear `systemd` unit file expects a key file, if you don’t want to use one, delete the `--auth-user-pass /etc/openvpn/tunnelbear.d/tb-auth.key \` line from that file. But then the username and password will have to entered everytime a connection is started.
 
 Create the auth file in the same folder as the config files.
 
@@ -117,8 +117,8 @@ The menu:
 	7 Spain
 	8 Sweden
 	9 Switzerland
-	10 UK
-	11 US
+	10 UnitedKingdom
+	11 UnitedStates
 	==========
 	VPN choice? (1 to 11):
 
