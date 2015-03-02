@@ -3,6 +3,7 @@
 A script and configuration files for ArchLinux for use with the TunnelBear VPN service.
 
 [TunnelBear](https://www.tunnelbear.com) is a VPN service that recently started supporting Linux. They have provided the OpenVPN configuration files, and instructions for installation. The instructions are for systems running NetworkManager in a graphical environment. For headless servers that don’t run a window manager, it’s a bit more difficult.
+
 The following instructions have been tested on a ArchLinux ARM system installed on a PogoPlug. This should work equally well on a Raspberry Pi running Arch. Overall, it should be compatible with any flavor of linux that uses `systemd` to manage services.
 
 The basics steps are:
