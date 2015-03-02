@@ -1,0 +1,83 @@
+# tunnelbear
+#
+# This is a simple script to control a TunnelBear VPN connection.
+#
+# NOTES:
+#   This has been tested on ArchLinux ARM, it should work on other systems
+#   that use systemd for starting services.
+#
+#   The script must be run as root. Place it in /usr/bin/local.
+#
+#   This script expects the configuration file to be named as
+#   '<country>.ovpn' not the 'TunnelBear <country>.ovpn' as provided.
+#
+#   This script aslo needs the custom tunnelbear systemd unit file.
+#
+# USAGE:
+#   Query the status of the current connection:
+#   tunnelbear up?
+#
+#   Connect to a known exit point:
+#   tunnelbear Japan
+#
+#   Connect to configured exit points using a menu:
+#   tunnelbear
+#
+#   Stop the current connection
+#   tunnelbear stop
+#
+# +======================================================================+
+
+#!/usr/bin/env ruby
+
+pid = Dir.glob("/run/tunnelbear*").shift
+
+case ARGV[0]
+when "stop"
+    if pid then
+        srv = File.basename(pid, '.pid')
+        exec "systemctl stop #{srv}"
+        exit
+    else
+        puts "No bears to stop."
+        exit
+    end
+when "up?"
+    if pid then
+        loc = pid.match(/^.+@(.+)\.pid/)[1]
+        puts "TunnelBear is roaring in #{loc} (pid: #{File.read(pid).chomp})."
+    else
+        puts "Grrrr. No bear."
+    end
+    exit
+end
+
+vpns = Dir.entries("/etc/openvpn/tunnelbear").sort.keep_if {|x| x =~ /ovpn/}
+vpns.map {|x| x.sub!(/.ovpn/, '')}
+
+if vpns.include? ARGV[0]
+    if pid then
+        puts "TunnelBear already running. Rrraww!"
+        exit
+    else
+        puts "Tunneling to TunnelBear #{ARGV[0]}..."
+        exec "systemctl start tunnelbear@#{ARGV[0]}"
+        exit
+    end
+else
+    ARGV.replace []
+    i = 0
+
+    vpns.each {|x| puts "#{i += 1} #{x}"}
+    puts  "+=========+"
+    print "VPN choice? (1 to #{vpns.length}): "
+    choice = gets.chomp.to_i - 1
+    print "Connect to TunnelBear #{vpns[choice]}? [Y/n]: "
+    confirm = gets.chomp
+    if confirm == 'n' || confirm == 'N' then
+          puts "No bear for you! Grrrr."
+    else
+          puts "Tunneling to TunnelBear #{vpns[choice]}..."
+          exec "systemctl start tunnelbear@#{vpns[choice]}"
+    end
+end

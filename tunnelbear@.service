@@ -1,0 +1,16 @@
+[Unit]
+Description=TunnelBear connection to %i
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/openvpn \
+--cd /etc/openvpn/tunnelbear.d \
+--config /etc/openvpn/tunnelbear.d/%i.ovpn \
+--auth-user-pass /etc/openvpn/tunnelbear.d/tb-auth.key \
+--daemon tunnelbear@%i \
+--writepid /run/tunnelbear@%i.pid
+
+PIDFile=/run/tunnelbear@%i.pid
+
+[Install]
+WantedBy=multi-user.target
