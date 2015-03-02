@@ -69,7 +69,7 @@ The files need to be owned by the root account, and not otherwise readable. Chan
 
 Finally! First copy the the config folder into place.
 
-	sudo cp tunnelbear.d /etc/openvpn/
+	sudo cp -r tunnelbear.d /etc/openvpn/
 
 Copy the systemd unit file into place.
 
@@ -78,7 +78,7 @@ Copy the systemd unit file into place.
 Make the tunnelbear script executable, and copy it into place.
 
 	chmod +x tunnelbear
-	sudo cp tunnelbear /usr/bin/local
+	sudo cp tunnelbear /usr/local/bin
 
 ## Usage
 
