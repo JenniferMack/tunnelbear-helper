@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+#
 # tunnelbear
 #
 # This is a simple script to control a TunnelBear VPN connection.
@@ -28,8 +30,6 @@
 #
 # +======================================================================+
 
-#!/usr/bin/env ruby
-
 pid = Dir.glob("/run/tunnelbear*").shift
 
 case ARGV[0]
@@ -52,7 +52,7 @@ when "up?"
     exit
 end
 
-vpns = Dir.entries("/etc/openvpn/tunnelbear").sort.keep_if {|x| x =~ /ovpn/}
+vpns = Dir.entries("/etc/openvpn/tunnelbear.d").sort.keep_if {|x| x =~ /ovpn/}
 vpns.map {|x| x.sub!(/.ovpn/, '')}
 
 if vpns.include? ARGV[0]
