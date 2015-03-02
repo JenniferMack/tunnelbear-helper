@@ -152,3 +152,25 @@ To stop a running connections, simple start the script with the stop option.
 ### Errors
 
 If the script is not run as root, `systemd` will complain. If a number is entered that is not on the menu, ruby will complain.
+
+## DNS
+
+Once the TunnelBear is roaring, make sure to check for Internet connectivity. Once the VPN is up and running, the name servers from the local ISP are not available. If this happens the `resolv.conf` file must be updated. With the default configuration of ArchLinux this file is a symlink that gets updated automatically. It's better to make the it a regular file with permanent settings.
+
+First delete the symlink.
+
+    $ sudo rm /etc/resolv.conf
+
+Then create a new file.
+
+    $ sudo touch /etc/resolv.conf
+
+Then add the nameservers for OpenDNS with a Google fallback and a short timeout value.
+
+    nameserver 208.67.220.220
+    nameserver 208.67.222.222
+    nameserver 8.8.8.8
+    options timeout:1
+
+Save the file, and check for Internet connectivity.
+
