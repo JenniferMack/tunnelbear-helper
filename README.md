@@ -2,7 +2,7 @@
 
 A script and configuration files for ArchLinux for use with the TunnelBear VPN service.
 
-[TunnelBear](https://www.tunnelbear.com) is a VPN service that recently started supporting Linux. They have provided the OpenVPN configuration files, and instructions for installation. The instructions are for systems running NetworkManager in a graphical environment. For headless servers that don’t run a window manager, it’s a bit more difficult.
+[TunnelBear][1] is a VPN service that recently started supporting Linux. They have provided the OpenVPN configuration files, and instructions for installation. The instructions are for systems running NetworkManager in a graphical environment. For headless servers that don’t run a window manager, it’s a bit more difficult.
 
 The following instructions have been tested on a ArchLinux ARM system installed on a PogoPlug. This should work equally well on a Raspberry Pi running Arch. Overall, it should be compatible with any flavor of linux that uses `systemd` to manage services.
 
@@ -26,14 +26,14 @@ Requirements are:
 Install `openvpn` if it’s not already installed.
 
 	sudo pacman -S openvpn
-	
-The TunnelBear OpenVPN config files need to be downloaded. They can be found at a link on the [Linux support page](https://www.tunnelbear.com/updates/linux_support/). The file is named `openvpn.zip`. This name may change in the future. Adjust the following commands if that happens.
+ 
+The TunnelBear OpenVPN config files need to be downloaded. They can be found at a link on the [Linux support page][2]. The file is named `openvpn.zip`. This name may change in the future. Adjust the following commands if that happens.
 
 After downloading, upzip the file and rename the folder.
 
 	unzip openvpn.zip
 	mv openvpn tunnelbear.d
-	
+ 
 ## File renaming
 
 The file names of the configuration files are not command line friendly. They are excessively long and contain spaces. Doing this step will save a lot of troubleshooting time.
@@ -155,22 +155,26 @@ If the script is not run as root, `systemd` will complain. If a number is entere
 
 ## DNS
 
-Once the TunnelBear is roaring, make sure to check for Internet connectivity. Once the VPN is up and running, the name servers from the local ISP are not available. If this happens the `resolv.conf` file must be updated. With the default configuration of ArchLinux this file is a symlink that gets updated automatically. It's better to make the it a regular file with permanent settings.
+Once the TunnelBear is roaring, make sure to check for Internet connectivity. Once the VPN is up and running, the name servers from the local ISP are not available. If this happens the `resolv.conf` file must be updated. With the default configuration of ArchLinux this file is a symlink that gets updated automatically. Overriding the defaults is easy, and will use OpenDNS whether the VPN is up or not.
 
-First delete the symlink.
+Edit `/etc/systemd/network/eth0.network` to:
 
-    $ sudo rm /etc/resolv.conf
+	[Match]
+	Name=eth0
+	
+	[Network]
+	DHCP=both
+	DNS=208.67.222.222
+	DNS=208.67.220.220
+	
+	[DHCP]
+	UseDNS=false
 
-Then create a new file.
+Save the file, then restart the network daemon.
 
-    $ sudo touch /etc/resolv.conf
+	$ sudo systemctl restart systemd-networkd
 
-Then add the nameservers for OpenDNS with a Google fallback and a short timeout value.
+Checking `/etc/resolv.conf` should now show only our OpenDNS servers. 
 
-    nameserver 208.67.220.220
-    nameserver 208.67.222.222
-    nameserver 8.8.8.8
-    options timeout:1
-
-Save the file, and check for Internet connectivity.
-
+[1]:	https://www.tunnelbear.com
+[2]:	https://www.tunnelbear.com/updates/linux_support/
