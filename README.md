@@ -21,6 +21,12 @@ Requirements are:
 
 ---- 
 
+## tb-downloaded.sh
+
+This is a shell script that automates the downloading and renaming process. It needs `curl` for the downloading, and either `sudo` or root privs for the final `chown` step.
+
+If you've already downloaded the config files, comment out the line beginning with `curl`. Then run script from the same directory as the downloaded file.
+
 ## Initial setup
 
 Install `openvpn` if it’s not already installed.
