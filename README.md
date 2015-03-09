@@ -21,7 +21,7 @@ Requirements are:
 
 ---- 
 
-## tb-downloaded.sh
+## tb-downloader.sh
 
 This is a shell script that automates the downloading and renaming process. It needs `curl` for the downloading, and either `sudo` or root privs for the final `chown` step.
 
