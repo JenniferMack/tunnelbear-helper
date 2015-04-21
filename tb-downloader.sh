@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
 echo "Downloading openvpn config files..."
-curl -O https://s3.amazonaws.com/tunnelbear/linux/openvpn.zip
+if [ -f openvpn.zip ]
+then
+  echo "Found file..."
+else
+  curl -O https://s3.amazonaws.com/tunnelbear/linux/openvpn.zip
+fi
 
 echo "Extracting files..."
 unzip openvpn.zip
