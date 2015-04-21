@@ -42,7 +42,7 @@ when "stop"
         puts "No bears to stop."
         exit
     end
-when "up?"
+when "status"
     if pid then
         loc = pid.match(/^.+@(.+)\.pid/)[1]
         puts "TunnelBear is roaring in #{loc} (pid: #{File.read(pid).chomp})."

@@ -144,9 +144,9 @@ Starting the script with the name of a country as an option will bypass the menu
 
 ### TunnelBear query
 
-The `up?` option will query the system for a running process and return the connected country and process ID.
+The `status` option will query the system for a running process and return the connected country and process ID.
 
-	$ tunnelbear up?
+	$ tunnelbear status
 	TunnelBear is roaring in Japan (pid: 20868).
 
 ### TunnelBear stop
