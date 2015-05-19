@@ -182,7 +182,7 @@ Save the file, then restart the network daemon.
 
 Checking `/etc/resolv.conf` should now show only our OpenDNS servers. 
 
-If it dosent add them manualy to your 
+If it dosent add them manualy by editing your `resolv.conf` file
 
 `sudo nano /etc/resolv.conf`
 
