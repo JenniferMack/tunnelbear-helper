@@ -182,5 +182,17 @@ Save the file, then restart the network daemon.
 
 Checking `/etc/resolv.conf` should now show only our OpenDNS servers. 
 
+If it dosent add them manualy to your 
+
+`sudo nano /etc/resolv.conf`
+
+add the following lines 
+
+	nameserver 208.67.222.222
+	nameserver 208.67.220.220
+
+
+
+
 [1]:	https://www.tunnelbear.com
 [2]:	https://www.tunnelbear.com/updates/linux_support/
