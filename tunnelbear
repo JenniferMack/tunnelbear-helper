@@ -17,7 +17,7 @@
 #
 # USAGE:
 #   Query the status of the current connection:
-#   tunnelbear up?
+#   tunnelbear status
 #
 #   Connect to a known exit point:
 #   tunnelbear Japan
