@@ -65,6 +65,11 @@ if vpns.include? ARGV[0]
         exit
     end
 else
+    if pid then
+        puts "TunnelBear already running. Rrraww!"
+        exit
+    end
+
     ARGV.replace []
     i = 0
 
