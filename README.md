@@ -82,10 +82,9 @@ Copy the systemd unit file into place.
 
 	sudo cp tunnelbear\@.service /usr/lib/systemd/system/
 
-Make the tunnelbear script executable, and copy it into place.
+Copy the tunnelbear script into place.
 
-	chmod +x tunnelbear
-	sudo cp tunnelbear /usr/local/bin
+	sudo cp tunnelbear /usr/local/bin/
 
 ## Usage
 
