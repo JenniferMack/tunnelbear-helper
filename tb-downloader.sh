@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Check if the 'curl' command is installed.
+if ! [ -x "$(command -v curl)" ]; then
+  echo 'Error: curl is not installed. Install curl and try again.' >&2
+  exit 1
+fi
+
 echo "Downloading openvpn config files..."
 if [ -f openvpn.zip ]
 then
